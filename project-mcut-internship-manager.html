@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCUT Internship Manager — Yannese Loo</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0f;
+    --surface: #13131a;
+    --surface2: #1c1c27;
+    --accent: #e8ff47;
+    --accent2: #ff6b6b;
+    --accent3: #6bffd8;
+    --text: #f0f0f0;
+    --muted: #8888a0;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(11,11,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+    color: var(--accent); letter-spacing: 0.05em; text-decoration: none;
+  }
+  .nav-back {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--accent); }
+  .nav-back::before { content: '←'; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 160px 60px 80px;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-glow {
+    position: absolute; top: -150px; right: -150px;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(107,255,216,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; color: var(--muted); margin-bottom: 28px;
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .breadcrumb span { color: var(--accent3); }
+
+  .project-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(107,255,216,0.08); border: 1px solid rgba(107,255,216,0.2);
+    color: var(--accent3); padding: 6px 16px; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 20px;
+  }
+  .hero h1 em { color: var(--accent3); font-style: normal; }
+
+  .hero-summary {
+    max-width: 620px; color: var(--muted);
+    font-size: 1.05rem; line-height: 1.75; margin-bottom: 40px;
+  }
+  .hero-summary strong { color: var(--text); font-weight: 500; }
+
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 32px;
+    padding-top: 40px; border-top: 1px solid var(--border);
+  }
+  .meta-item { }
+  .meta-label {
+    font-size: 0.72rem; color: var(--muted); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 4px;
+  }
+  .meta-value { font-size: 0.9rem; font-weight: 500; color: var(--text); }
+
+  /* ── IMPACT STRIP ── */
+  .impact-strip {
+    background: var(--accent);
+    padding: 0 60px;
+  }
+  .impact-inner {
+    display: flex; justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .impact-stat {
+    flex: 1; min-width: 140px;
+    padding: 36px 0;
+    border-right: 1px solid rgba(0,0,0,0.12);
+    text-align: center;
+  }
+  .impact-stat:last-child { border-right: none; }
+  .impact-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800; color: #0b0b0f;
+    line-height: 1; margin-bottom: 6px;
+  }
+  .impact-label {
+    font-size: 0.78rem; font-weight: 600; color: rgba(0,0,0,0.55);
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 60px; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; display: block; width: 28px; height: 1px; background: var(--accent); }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 40px; line-height: 1.1;
+  }
+
+  /* ── PROBLEM / SOLUTION TWO-COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  .block-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px; position: relative; overflow: hidden;
+  }
+  .block-card.problem { border-top: 3px solid var(--accent2); }
+  .block-card.solution { border-top: 3px solid var(--accent3); }
+
+  .block-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem; font-weight: 700; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .block-card-title .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-red { background: var(--accent2); }
+  .dot-green { background: var(--accent3); }
+
+  .pain-list, .sol-list { list-style: none; display: flex; flex-direction: column; gap: 14px; }
+  .pain-list li, .sol-list li {
+    font-size: 0.9rem; color: var(--muted); line-height: 1.6;
+    padding-left: 20px; position: relative;
+  }
+  .pain-list li::before { content: '✕'; position: absolute; left: 0; color: var(--accent2); font-size: 0.75rem; top: 2px; }
+  .sol-list li::before  { content: '✓'; position: absolute; left: 0; color: var(--accent3); font-size: 0.8rem; top: 1px; }
+  .pain-list li strong, .sol-list li strong { color: var(--text); font-weight: 500; }
+
+  /* ── FEATURES ── */
+  .features-section { background: var(--surface); }
+
+  .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .feature-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .feature-card:hover { border-color: rgba(107,255,216,0.25); transform: translateY(-3px); }
+  .feature-icon { font-size: 1.6rem; margin-bottom: 14px; display: block; }
+  .feature-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 700; color: var(--text);
+    margin-bottom: 8px; line-height: 1.3;
+  }
+  .feature-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── TECH STACK ── */
+  .stack-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .stack-pill {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 100px; padding: 10px 20px;
+    font-size: 0.85rem; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .stack-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .stack-icon { font-size: 1rem; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .outcome-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px 32px;
+    display: flex; align-items: flex-start; gap: 18px;
+    transition: border-color 0.2s;
+  }
+  .outcome-card:hover { border-color: rgba(232,255,71,0.2); }
+  .outcome-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  .outcome-text { }
+  .outcome-title { font-weight: 600; color: var(--text); font-size: 0.95rem; margin-bottom: 4px; }
+  .outcome-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── NEXT STEPS ── */
+  .next-list { display: flex; flex-direction: column; gap: 14px; max-width: 680px; }
+  .next-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 24px;
+  }
+  .next-num {
+    font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 800;
+    color: var(--accent); min-width: 28px;
+    background: rgba(232,255,71,0.1); border-radius: 6px;
+    padding: 3px 8px; text-align: center;
+  }
+  .next-text { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+  .next-text strong { color: var(--text); font-weight: 500; }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    background: var(--surface);
+    padding: 80px 60px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .bottom-cta h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800;
+    letter-spacing: -0.02em; margin-bottom: 14px;
+  }
+  .bottom-cta h2 span { color: var(--accent); }
+  .bottom-cta p { color: var(--muted); font-size: 1rem; margin-bottom: 36px; max-width: 480px; margin-left: auto; margin-right: auto; }
+  .cta-row { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--accent); color: #0b0b0f;
+    padding: 14px 32px; border-radius: 100px;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,255,71,0.25); }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    padding: 14px 32px; border-radius: 100px;
+    font-weight: 500; font-size: 0.9rem;
+    text-decoration: none; border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* footer */
+  footer {
+    background: var(--bg); padding: 28px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+  .footer-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 0.9rem; color: var(--muted); }
+  .footer-copy { font-size: 0.8rem; color: var(--muted); }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    section, .hero, .bottom-cta { padding-left: 24px; padding-right: 24px; }
+    .impact-strip { padding: 0 24px; }
+    .two-col, .features-grid, .outcomes-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 8px; text-align: center; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="yannese-loo-resume.html" class="nav-logo">YL.</a>
+  <a href="yannese-loo-resume.html" class="nav-back">Back to Portfolio</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="breadcrumb">Yannese Loo <span>/</span> Projects <span>/</span> MCUT Internship Manager</div>
+  <div class="project-tag">Power Platform · Process Automation · UX</div>
+  <h1>MCUT <em>Internship</em><br>Manager App</h1>
+  <p class="hero-summary">
+    Designed and built an end-to-end internship management system for MCUT's Office of International Affairs — replacing error-prone spreadsheets with a <strong>centralised Power Apps platform</strong> that automated workflows, protected data integrity, and saved hours of admin work per month.
+  </p>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Designer & Developer</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Organisation</div>
+      <div class="meta-value">MCUT — Office of International Affairs</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Tools</div>
+      <div class="meta-value">Power Apps · Power Automate · Power BI</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Timeline</div>
+      <div class="meta-value">2024 · Apr – Dec</div>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT STRIP -->
+<div class="impact-strip">
+  <div class="impact-inner">
+    <div class="impact-stat">
+      <div class="impact-num">↓ Errors</div>
+      <div class="impact-label">Data loss & manual mistakes eliminated</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">100%</div>
+      <div class="impact-label">Automated pre-arrival & exit comms</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">Hrs/mo</div>
+      <div class="impact-label">Admin time saved per month</div>
+    </div>
+    <div class="impact-stat">
+      <div class="impact-num">Real-time</div>
+      <div class="impact-label">Live Power BI internship dashboards</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM & SOLUTION -->
+<section class="reveal">
+  <div class="section-label">Context</div>
+  <div class="section-title">Problem → Solution</div>
+  <div class="two-col">
+    <div class="block-card problem">
+      <div class="block-card-title"><span class="dot dot-red"></span> The Problem</div>
+      <ul class="pain-list">
+        <li><strong>Data integrity at risk</strong> — shared Google Sheets exposed records to accidental deletion or tampering across departments.</li>
+        <li><strong>No real-time tracking</strong> — student application status was only updated manually upon arrival confirmation.</li>
+        <li><strong>Communication gaps</strong> — pre-arrival emails and exit reminders were sent ad hoc, causing delays and missed steps.</li>
+        <li><strong>Exit process bottlenecks</strong> — students missed feedback submissions; staff had to chase completions manually.</li>
+      </ul>
+    </div>
+    <div class="block-card solution">
+      <div class="block-card-title"><span class="dot dot-green"></span> The Solution</div>
+      <ul class="sol-list">
+        <li><strong>Centralised app</strong> — single source of truth for all internship student data, accessible to authorised staff only.</li>
+        <li><strong>Automated workflows</strong> — Power Automate triggers comms at key milestones: pre-arrival, check-in, exit, and completion.</li>
+        <li><strong>Digital exit process</strong> — students submit forms digitally; staff close cases in one click.</li>
+        <li><strong>Live reporting</strong> — Power BI dashboards give leadership instant visibility into program performance.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section reveal">
+  <div class="section-label">Product</div>
+  <div class="section-title">Key Features</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">📋</span>
+      <div class="feature-title">Centralised Student Dashboard</div>
+      <div class="feature-desc">View, filter, and manage all internship students across every program stage — from application to completion — in one place.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">⏰</span>
+      <div class="feature-title">Automated Communications</div>
+      <div class="feature-desc">Pre-arrival guides, deadline reminders, and exit notifications are automatically triggered based on each student's individual timeline.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">✅</span>
+      <div class="feature-title">One-Click Case Closure</div>
+      <div class="feature-desc">Staff mark exit forms as complete with a single action, automatically dispatching a congratulatory email with an optional completion certificate.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔐</span>
+      <div class="feature-title">Role-Based Data Security</div>
+      <div class="feature-desc">Access controls restrict data modification to authorised users; all changes are logged — eliminating the risk of accidental data loss.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📊</span>
+      <div class="feature-title">Power BI Reporting</div>
+      <div class="feature-desc">Real-time dashboards visualise internship statistics and performance trends, enabling data-driven decisions for program leadership.</div>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📤</span>
+      <div class="feature-title">Excel Export & Integration</div>
+      <div class="feature-desc">Student records export to Excel for seamless compatibility with MCUT's existing internal systems and reporting workflows.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="reveal">
+  <div class="section-label">Built With</div>
+  <div class="section-title">Tech Stack</div>
+  <div class="stack-row">
+    <div class="stack-pill"><span class="stack-icon">⚡</span> Power Apps (Canvas + Model-Driven)</div>
+    <div class="stack-pill"><span class="stack-icon">🔄</span> Power Automate</div>
+    <div class="stack-pill"><span class="stack-icon">📊</span> Power BI</div>
+    <div class="stack-pill"><span class="stack-icon">🗃️</span> Dataverse / Data Modelling</div>
+    <div class="stack-pill"><span class="stack-icon">📎</span> Excel Integration</div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section class="features-section reveal">
+  <div class="section-label">Results</div>
+  <div class="section-title">Project Outcomes</div>
+  <div class="outcomes-grid">
+    <div class="outcome-card">
+      <div class="outcome-icon">📉</div>
+      <div class="outcome-text">
+        <div class="outcome-title">Eliminated Data Errors</div>
+        <div class="outcome-desc">Replaced fragmented Google Sheets with a secure, single-source system — removing the risk of data loss or unauthorised edits.</div>
+      </div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">⏱️</div>
+      <div class="outcome-text">
+        <div class="outcome-title">Significant Admin Time Saved</div>
+        <div class="outcome-desc">Automated email workflows removed hours of manual follow-up per month, freeing staff to focus on higher-value tasks.</div>
+      </div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">📬</div>
+      <div class="outcome-text">
+        <div class="outcome-title">Improved Student Engagement</div>
+        <div class="outcome-desc">Timely, automated communications improved on-time completion of arrival and exit procedures across all student cohorts.</div>
+      </div>
+    </div>
+    <div class="outcome-card">
+      <div class="outcome-icon">📈</div>
+      <div class="outcome-text">
+        <div class="outcome-title">Leadership Visibility</div>
+        <div class="outcome-desc">Real-time Power BI dashboards gave program managers instant access to internship performance data — no manual reporting needed.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEPS -->
+<section class="reveal">
+  <div class="section-label">Roadmap</div>
+  <div class="section-title">What's Next</div>
+  <div class="next-list">
+    <div class="next-item">
+      <div class="next-num">01</div>
+      <div class="next-text"><strong>Auto-attach completion certificates</strong> — trigger certificate generation and email delivery automatically upon case closure.</div>
+    </div>
+    <div class="next-item">
+      <div class="next-num">02</div>
+      <div class="next-text"><strong>Smart admin notifications</strong> — surface deadline alerts proactively based on student start/end dates without manual input.</div>
+    </div>
+    <div class="next-item">
+      <div class="next-num">03</div>
+      <div class="next-text"><strong>Embedded Power BI</strong> — integrate dashboards directly within the app interface for a seamless all-in-one experience.</div>
+    </div>
+    <div class="next-item">
+      <div class="next-num">04</div>
+      <div class="next-text"><strong>MCUT system integration</strong> — connect the app to MCUT's internal database for a fully unified data pipeline across departments.</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOTTOM CTA -->
+<div class="bottom-cta">
+  <h2>Want to see it in <span>action</span>?</h2>
+  <p>I'm happy to walk you through a live demo or discuss how I can bring this kind of thinking to your team.</p>
+  <div class="cta-row">
+    <a href="https://www.linkedin.com/in/yannese-loo" target="_blank" class="btn-primary">Connect on LinkedIn ↗</a>
+    <a href="yannese-loo-resume.html" class="btn-ghost">← Back to Portfolio</a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-name">Yannese Loo</div>
+  <div class="footer-copy">© 2025 · MCUT Internship Manager · Project Case Study</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.features-grid, .outcomes-grid, .two-col, .next-list').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.07}s`;
+      child.classList.add('reveal');
+      observer.observe(child);
+    });
+  });
+</script>
+</body>
+</html>

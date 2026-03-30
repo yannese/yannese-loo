@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yannese Loo — Marketing & Communications</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b0f;
+    --surface: #13131a;
+    --surface2: #1c1c27;
+    --accent: #e8ff47;
+    --accent2: #ff6b6b;
+    --accent3: #6bffd8;
+    --text: #f0f0f0;
+    --muted: #8888a0;
+    --border: rgba(255,255,255,0.07);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: rgba(11,11,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--accent); letter-spacing: 0.05em;
+  }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 140px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,255,71,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute; bottom: -100px; left: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(107,255,216,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,255,71,0.1); border: 1px solid rgba(232,255,71,0.25);
+    color: var(--accent); padding: 6px 16px; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 32px; width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -0.02em;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero h1 .line2 {
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(240,240,240,0.3);
+  }
+  .hero h1 .accent-word { color: var(--accent); }
+
+  .hero-sub {
+    margin-top: 32px; max-width: 540px;
+    color: var(--muted); font-size: 1.05rem; line-height: 1.7;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-cta {
+    margin-top: 48px; display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--accent); color: #0b0b0f;
+    padding: 14px 32px; border-radius: 100px;
+    font-weight: 700; font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
+    text-decoration: none; transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(232,255,71,0.25); }
+
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    padding: 14px 32px; border-radius: 100px;
+    font-weight: 500; font-size: 0.9rem; letter-spacing: 0.05em;
+    text-decoration: none; border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-stats {
+    margin-top: 80px; display: flex; gap: 48px; flex-wrap: wrap;
+    padding-top: 48px; border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .stat { }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800; color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 100px 60px; }
+
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
+    line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 60px;
+  }
+
+  /* ── ABOUT ── */
+  .about { background: var(--surface); }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  }
+
+  .about-text p {
+    color: var(--muted); line-height: 1.8; margin-bottom: 20px; font-size: 1rem;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+
+  .skills-cloud { }
+  .skills-group { margin-bottom: 32px; }
+  .skills-group-title {
+    font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 12px;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 0.82rem; font-weight: 500;
+    border: 1px solid var(--border); color: var(--text);
+    background: var(--surface2); transition: all 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--accent3); color: var(--accent3); }
+  .skill-tag.highlight { border-color: rgba(232,255,71,0.3); color: var(--accent); background: rgba(232,255,71,0.05); }
+
+  /* ── EXPERIENCE ── */
+  .experience { background: var(--bg); }
+
+  .exp-list { display: flex; flex-direction: column; gap: 2px; }
+
+  .exp-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 40px;
+    display: grid; grid-template-columns: 200px 1fr;
+    gap: 40px; align-items: start;
+    transition: border-color 0.2s, transform 0.2s;
+    margin-bottom: 12px;
+    position: relative; overflow: hidden;
+  }
+  .exp-item::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--border); transition: background 0.2s;
+  }
+  .exp-item:hover { border-color: rgba(232,255,71,0.2); transform: translateX(4px); }
+  .exp-item:hover::before { background: var(--accent); }
+
+  .exp-meta { }
+  .exp-date {
+    font-size: 0.78rem; color: var(--accent); font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  .exp-company {
+    font-size: 0.85rem; color: var(--muted); line-height: 1.4;
+  }
+  .exp-type {
+    display: inline-block; margin-top: 10px;
+    font-size: 0.72rem; padding: 3px 10px; border-radius: 100px;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+
+  .exp-content { }
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; color: var(--text);
+  }
+  .exp-desc {
+    color: var(--muted); font-size: 0.92rem; line-height: 1.75;
+  }
+  .exp-desc li { margin-bottom: 6px; list-style: none; padding-left: 16px; position: relative; }
+  .exp-desc li::before { content: '→'; position: absolute; left: 0; color: var(--accent3); font-size: 0.8em; }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements { background: var(--surface); }
+
+  .ach-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+
+  .ach-card {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 28px; position: relative;
+    transition: all 0.25s; overflow: hidden;
+  }
+  .ach-card::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(232,255,71,0.04) 0%, transparent 100%);
+    opacity: 0; transition: opacity 0.25s;
+  }
+  .ach-card:hover { border-color: rgba(232,255,71,0.25); transform: translateY(-4px); }
+  .ach-card:hover::after { opacity: 1; }
+
+  .ach-icon {
+    font-size: 1.8rem; margin-bottom: 16px; display: block;
+  }
+  .ach-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem; font-weight: 700; color: var(--text);
+    margin-bottom: 8px; line-height: 1.3;
+  }
+  .ach-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .ach-badge {
+    display: inline-block; margin-top: 12px;
+    padding: 4px 10px; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 600;
+    background: rgba(232,255,71,0.1); color: var(--accent);
+    border: 1px solid rgba(232,255,71,0.2);
+  }
+
+  /* ── PROJECTS ── */
+  .projects { background: var(--bg); }
+
+  .proj-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+  }
+
+  .proj-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 36px; position: relative;
+    transition: all 0.3s; overflow: hidden;
+  }
+  .proj-card.featured { grid-column: span 2; }
+
+  .proj-card-bg {
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    opacity: 0.04; transition: opacity 0.3s;
+  }
+  .proj-card:hover .proj-card-bg { opacity: 0.08; }
+  .proj-card:hover { border-color: rgba(107,255,216,0.2); transform: translateY(-3px); }
+
+  .proj-category {
+    font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--accent3);
+    margin-bottom: 12px;
+  }
+  .proj-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 700; color: var(--text);
+    margin-bottom: 12px; line-height: 1.2;
+  }
+  .proj-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .proj-tag {
+    padding: 4px 10px; border-radius: 100px;
+    font-size: 0.75rem; background: var(--surface2);
+    border: 1px solid var(--border); color: var(--muted);
+  }
+
+  /* ── EDUCATION ── */
+  .education { background: var(--surface); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+  .edu-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px; transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: rgba(232,255,71,0.2); }
+
+  .edu-year {
+    font-size: 0.75rem; color: var(--accent); font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;
+  }
+  .edu-school { font-size: 0.88rem; color: var(--muted); }
+  .edu-detail { font-size: 0.82rem; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+
+  /* ── CERTIFICATIONS ── */
+  .certs-list { display: flex; flex-wrap: wrap; gap: 12px; }
+  .cert-pill {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 100px; padding: 10px 20px;
+    font-size: 0.85rem; transition: all 0.2s;
+  }
+  .cert-pill:hover { border-color: var(--accent3); color: var(--accent3); }
+  .cert-pill .cert-logo { font-size: 1rem; }
+
+  /* ── CONTACT ── */
+  .contact { background: var(--bg); text-align: center; }
+
+  .contact-inner {
+    max-width: 640px; margin: 0 auto;
+  }
+
+  .contact .section-label { justify-content: center; }
+  .contact .section-label::before { display: none; }
+
+  .contact-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800;
+    line-height: 1.05; letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+  .contact-headline span { color: var(--accent); }
+
+  .contact-sub { color: var(--muted); font-size: 1rem; margin-bottom: 48px; }
+
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--text); text-decoration: none;
+    font-size: 1rem; border-bottom: 1px solid var(--border);
+    padding-bottom: 4px; transition: all 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--surface);
+    padding: 32px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+  .footer-name {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 0.9rem; color: var(--muted);
+  }
+  .footer-copy { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── SCROLL ANIMATION ── */
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 80px 24px; }
+    .hero { padding: 120px 24px 60px; }
+    .about-grid, .proj-grid, .edu-grid { grid-template-columns: 1fr; }
+    .proj-card.featured { grid-column: span 1; }
+    .ach-grid { grid-template-columns: 1fr 1fr; }
+    .exp-item { grid-template-columns: 1fr; gap: 12px; }
+    .hero-stats { gap: 28px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+  @media (max-width: 560px) {
+    .ach-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">YL.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://www.linkedin.com/in/yannese-loo" target="_blank" class="btn-primary" style="padding:10px 22px;font-size:0.8rem;">LinkedIn ↗</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-tag">Open to Opportunities</div>
+  <h1>
+    Yannese<br>
+    <span class="line2">Loo <span class="accent-word">—</span></span><br>
+    <span class="line2">Marketer &</span><br>
+    <span class="accent-word">Strategist</span>
+  </h1>
+  <p class="hero-sub">
+    Program Coordinator · Digital Marketer · UX Researcher · Creator of <em>I in Taiwan</em>. 
+    Bridging data, design, and storytelling to build impactful brand experiences.
+  </p>
+  <div class="hero-cta">
+    <a href="#experience" class="btn-primary">View My Work ↓</a>
+    <a href="#contact" class="btn-ghost">Get In Touch</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">4+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Awards & Honours</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Certifications</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">6+</div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about reveal" id="about">
+  <div class="section-label">Who I Am</div>
+  <div class="section-title">Driven by data.<br>Powered by creativity.</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm an <strong>IMBA graduate</strong> and Program Coordinator at Ming Chi University of Technology's Office of International Affairs. My work lives at the intersection of <strong>digital marketing, UX research, data analytics,</strong> and international business strategy.</p>
+      <p>From winning the <strong>Microsoft Code; Without Barriers Hackathon</strong> to building a bilingual content platform for expats in Taiwan, I turn complex problems into compelling, user-centred solutions.</p>
+      <p>I thrive in <strong>dynamic, cross-cultural environments</strong> — collaborating with diverse stakeholders, synthesising market intelligence, and delivering stories that move people to act.</p>
+    </div>
+    <div class="skills-cloud">
+      <div class="skills-group">
+        <div class="skills-group-title">Core Competencies</div>
+        <div class="skill-tags">
+          <span class="skill-tag highlight">Digital Marketing</span>
+          <span class="skill-tag highlight">Market Research</span>
+          <span class="skill-tag highlight">UX Research</span>
+          <span class="skill-tag highlight">Business Strategy</span>
+          <span class="skill-tag highlight">Content Creation</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-title">Data & Analytics</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Google Analytics</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">Excel / Sheets</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-title">Tools & Platforms</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Power Apps</span>
+          <span class="skill-tag">Canvas Apps</span>
+          <span class="skill-tag">AI / ML</span>
+          <span class="skill-tag">E-commerce</span>
+          <span class="skill-tag">Figma / UX</span>
+        </div>
+      </div>
+      <div class="skills-group">
+        <div class="skills-group-title">Soft Skills</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Cross-cultural Comms</span>
+          <span class="skill-tag">Stakeholder Mgmt</span>
+          <span class="skill-tag">Presentation</span>
+          <span class="skill-tag">Research & Analysis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience reveal" id="experience">
+  <div class="section-label">Career</div>
+  <div class="section-title">Work Experience</div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Feb 2025 – Present</div>
+        <div class="exp-company">Office of International Affairs<br>Ming Chi University of Technology<br>Taiwan</div>
+        <span class="exp-type">Contract</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Program Coordinator</div>
+        <ul class="exp-desc">
+          <li>Managing institutional partnerships with NTUST and CGU for Joint Supervision and Dual-Degree Ph.D. programs.</li>
+          <li>Overseeing administration and operations of short-term exchange and research internship programs (TEEP & MCUT initiatives).</li>
+          <li>Liaising across faculties, partner universities, and international students to ensure seamless program delivery.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Apr – Dec 2024</div>
+        <div class="exp-company">Innovation Incubation Centre<br>Ming Chi University of Technology<br>Taiwan</div>
+        <span class="exp-type">Contract</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Project Assistant</div>
+        <ul class="exp-desc">
+          <li>Managed an accelerator project for startups in the smart elder-care industry (SECIA).</li>
+          <li>Organised exhibitions, industry courses, and business matching events to drive startup growth.</li>
+          <li>Achieved media coverage in <em>Global Bio & Investment Monthly</em> through strategic online marketing.</li>
+          <li>Provided strategic support and cross-sector networking to help startups achieve business milestones.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Jul – Nov 2023</div>
+        <div class="exp-company">Institute for Information Industry (III)<br>Talent Circulation Alliance<br>Taiwan</div>
+        <span class="exp-type">Internship</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Business Trainee</div>
+        <ul class="exp-desc">
+          <li>Conducted in-depth market research on Malaysia's e-commerce landscape, smart aquaculture across Europe & Asia-Pacific, and Philippine EV adoption.</li>
+          <li>Co-led the "Attracting Foreign Talent to Taiwan" final project, awarded an <strong>Honourable Mention</strong> at the TCA Ceremony 2023.</li>
+          <li>Presented strategic findings and recommendations to cross-functional stakeholders in English.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-date">Jun 2020 – Dec 2021</div>
+        <div class="exp-company">J&T Express (Malaysia) Sdn Bhd<br>Malaysia</div>
+        <span class="exp-type">Full-time</span>
+      </div>
+      <div class="exp-content">
+        <div class="exp-role">Junior Finance Executive</div>
+        <ul class="exp-desc">
+          <li>Delivered timely financial reports with actionable recommendations to improve regional operations and cost efficiency.</li>
+          <li>Presented regional financial performance to management on a monthly basis.</li>
+          <li>Developed objectives and strategies with regional teams to achieve company financial goals.</li>
+          <li>Ensured all financial transactions complied with Malaysian Private Entities Reporting Standard (MPERS).</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements reveal" id="achievements">
+  <div class="section-label">Recognition</div>
+  <div class="section-title">Awards & Honours</div>
+  <div class="ach-grid">
+
+    <div class="ach-card">
+      <span class="ach-icon">🏆</span>
+      <div class="ach-title">Microsoft Code; Without Barriers Hackathon 2023</div>
+      <div class="ach-desc">Developed an AI sentiment analysis classifier and a credit card default prediction model for HCL Technologies' problem statements.</div>
+      <span class="ach-badge">Winner</span>
+    </div>
+
+    <div class="ach-card">
+      <span class="ach-icon">🥉</span>
+      <div class="ach-title">SDG & ESG Innovation Challenge 2023</div>
+      <div class="ach-desc">Recognised for delivering innovative solutions addressing sustainable development goals and ESG frameworks.</div>
+      <span class="ach-badge">3rd Prize</span>
+    </div>
+
+    <div class="ach-card">
+      <span class="ach-icon">🎖️</span>
+      <div class="ach-title">Talent Circulation Alliance Ceremony 2023</div>
+      <div class="ach-desc">Project on attracting foreign talent to Taiwan recognised with an Honourable Mention at the national TCA ceremony.</div>
+      <span class="ach-badge">Honourable Mention</span>
+    </div>
+
+    <div class="ach-card">
+      <span class="ach-icon">🥈</span>
+      <div class="ach-title">ITECH × MCUT Design-Centric Business Model Workshop 2023</div>
+      <div class="ach-desc">Secured 2nd place with an innovative solution for HotSnow® — generating direct interest and an exclusive reward from the company.</div>
+      <span class="ach-badge">2nd Place</span>
+    </div>
+
+    <div class="ach-card">
+      <span class="ach-icon">📖</span>
+      <div class="ach-title">Published Journal Article</div>
+      <div class="ach-desc">Research on the effects of game mechanics on user retention in social live streaming services (SLSS), examining MDA frameworks.</div>
+      <span class="ach-badge">Published Research</span>
+    </div>
+
+    <div class="ach-card">
+      <span class="ach-icon">💰</span>
+      <div class="ach-title">MetSpring Roll Entrepreneurship</div>
+      <div class="ach-desc">Led Southeast Asian food venture at annual school event, hitting NT$16,000 in sales within a single day through team coordination.</div>
+      <span class="ach-badge">NT$16K Sales</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects reveal" id="projects">
+  <div class="section-label">Portfolio</div>
+  <div class="section-title">Featured Projects</div>
+  <div class="proj-grid">
+
+    <div class="proj-card featured">
+      <div class="proj-card-bg" style="background: radial-gradient(circle, #e8ff47, transparent);"></div>
+      <div class="proj-category">Digital · Content · Community</div>
+      <div class="proj-title">I in Taiwan</div>
+      <div class="proj-desc">A bilingual digital platform sharing real-life tips, stories, and practical guides for internationals navigating life, work, and culture in Taiwan. Designed to help newcomers and long-term residents feel connected, informed, and empowered — from visa guides to cultural nuances.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Content Strategy</span>
+        <span class="proj-tag">Bilingual (EN/ZH)</span>
+        <span class="proj-tag">Community Building</span>
+        <span class="proj-tag">Digital Marketing</span>
+        <span class="proj-tag">Brand Identity</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-card-bg" style="background: radial-gradient(circle, #6bffd8, transparent);"></div>
+      <div class="proj-category">UX Research · App Design</div>
+      <div class="proj-title">Expat Connect App</div>
+      <div class="proj-desc">A UX-designed app helping expats in Taiwan discover safe, inclusive activities — bridging cultures, breaking language barriers, and building genuine social connections.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">UX Design</span>
+        <span class="proj-tag">User Research</span>
+        <span class="proj-tag">Figma</span>
+        <span class="proj-tag">Prototyping</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-card-bg" style="background: radial-gradient(circle, #ff6b6b, transparent);"></div>
+      <div class="proj-category">FinTech · UX · Gamification</div>
+      <div class="proj-title">Money Wise App</div>
+      <div class="proj-desc">A gamified financial literacy app turning saving, learning, and managing money into an engaging and rewarding experience for young adults. Research grounded in MDA framework.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Gamification</span>
+        <span class="proj-tag">UX Design</span>
+        <span class="proj-tag">FinTech</span>
+        <span class="proj-tag">Youth Engagement</span>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div class="proj-card-bg" style="background: radial-gradient(circle, #6b8fff, transparent);"></div>
+      <div class="proj-category">Power Platform · Data</div>
+      <div class="proj-title">MCUT Internship Manager</div>
+      <div class="proj-desc">A Canvas and Model-driven Power App built to manage student internship applications, with a Power BI dashboard to monitor internship progress and outcomes over time.</div>
+      <div class="proj-tags">
+        <span class="proj-tag">Power Apps</span>
+        <span class="proj-tag">Power BI</span>
+        <span class="proj-tag">Data Visualisation</span>
+        <span class="proj-tag">Process Automation</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section class="education reveal" id="education">
+  <div class="section-label">Background</div>
+  <div class="section-title">Education & Certifications</div>
+  <div class="edu-grid" style="margin-bottom: 48px;">
+    <div class="edu-card">
+      <div class="edu-year">2022 – 2024</div>
+      <div class="edu-degree">International MBA (IMBA)</div>
+      <div class="edu-school">Ming Chi University of Technology, Taiwan</div>
+      <div class="edu-detail">Focus: Business Strategy, AI, Data Analytics, Market Research, International Business.</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">Undergraduate</div>
+      <div class="edu-degree">Bachelor's Degree</div>
+      <div class="edu-school">Malaysia</div>
+      <div class="edu-detail">Foundation in Finance and Business Operations.</div>
+    </div>
+  </div>
+  <div class="section-label" style="margin-bottom: 20px;">Certifications</div>
+  <div class="certs-list">
+    <div class="cert-pill"><span class="cert-logo">🎓</span> Google Analytics Certification</div>
+    <div class="cert-pill"><span class="cert-logo">🎓</span> Google Digital Marketing & E-commerce</div>
+    <div class="cert-pill"><span class="cert-logo">📊</span> Tableau — Data Visualisation</div>
+    <div class="cert-pill"><span class="cert-logo">🐍</span> Python for Data Analysis</div>
+    <div class="cert-pill"><span class="cert-logo">📱</span> Microsoft Power Platform</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact reveal" id="contact">
+  <div class="contact-inner">
+    <div class="section-label">Let's Connect</div>
+    <div class="contact-headline">Ready to bring<br>value to your <span>team</span>?</div>
+    <p class="contact-sub">I'm actively exploring roles in marketing, communications, and strategy at global organisations. Let's talk about how I can contribute.</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <a href="https://www.linkedin.com/in/yannese-loo" target="_blank" class="contact-link">
+        <span>💼</span> LinkedIn — @yannese loo
+      </a>
+      <a href="mailto:yannese@email.com" class="contact-link">
+        <span>✉️</span> yannese@email.com
+      </a>
+    </div>
+    <div style="margin-top:48px;">
+      <a href="https://www.linkedin.com/in/yannese-loo" target="_blank" class="btn-primary">Connect on LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Yannese Loo</div>
+  <div class="footer-copy">© 2025 · Program Coordinator · Digital Marketer · Taiwan</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger child reveals
+  document.querySelectorAll('.ach-grid, .proj-grid, .edu-grid, .exp-list').forEach(grid => {
+    Array.from(grid.children).forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.08}s`;
+      child.classList.add('reveal');
+      observer.observe(child);
+    });
+  });
+</script>
+</body>
+</html>
