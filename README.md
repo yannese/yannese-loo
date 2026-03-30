@@ -1,4 +1,4 @@
 # yannese-loo
-Welcome to my resume profile!
-/n Check out my resume: https://yannese.github.io/yannese-loo/
-/n Project 01: https://yannese.github.io/yannese-loo/project-mcut-internship-manager.html
+<h1>Welcome to my resume profile!</h1>
+<p>Check out my resume: https://yannese.github.io/yannese-loo/</p>
+<p>Project 01: https://yannese.github.io/yannese-loo/project-mcut-internship-manager.html</p>
